@@ -29,4 +29,4 @@ Possible Parallax board...
 
 ## Disclaimer and Terms
 
-Please follow the ***Disclaimer*** and ***Terms*** in the ***Numerics*** Repository.
+Please follow the ***Disclaimer*** and ***Terms*** in the ***HMC5883L*** Repository.
