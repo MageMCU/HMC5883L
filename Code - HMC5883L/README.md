@@ -23,5 +23,5 @@
 
 ## ***Notes***
 
-- 20230224 Undergoing development... Code is is working
+- 20230224 Undergoing development... Code is working
 
