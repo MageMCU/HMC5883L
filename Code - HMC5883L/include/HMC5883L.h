@@ -6,9 +6,9 @@
 //                    (2) Others pending...
 //
 // Purpose: Public Github Account - MageMCU
-// Repository: HMC5993L
+// Repository: HMC5883L
 // Date Created: 20230221
-// Folder: Code
+// Folder: HMC5883L/include
 //
 // Author: Jesse Carpenter (carpentersoftware.com)
 // Email:carpenterhesse@gmail.com
