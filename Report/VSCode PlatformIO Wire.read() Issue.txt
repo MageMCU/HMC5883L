@@ -44,9 +44,9 @@ template <typename real>
         }
    }
 ------------------------------------------------------------------
-Output data:
+Output data: for m_x, m_z and m_y...
 UINT16_MAX = 0x7FFF = 0b0111 1111 1111 1111
-INT16_MAX = 0x7FFFF = 0b0111 1111 1111 1111
+INT16_MAX = 0x7FFF = 0b0111 1111 1111 1111
 Also I used real (float)
 ------------------------------------------------------------------
 Ex. raw data assigned to real (float) 
