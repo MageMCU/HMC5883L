@@ -21,11 +21,16 @@ This MCU chip **Atmega328P** is well known and the price is affordable as well a
 
 **Visual Studio Code** is a streamlined code editor and it runs on macOS, Linux, and Windows. The best thing about VSCode, it is free.
 
-## Issues
+## Issues - PlatformIO - Arduino - Arduino Uno - Arduino.h - Wire.h Libs...
 
-Possible Parallax board...
-
+- Uncovered Parallax HMC5883L failure.
+    - Integer data-type conversion two's compliment BUG
+    - Read **Report**: VSCode PlatformIO Wire.read() Issue.txt
+        - File located in Report folder...
+  
 ## In Development
+
+- This project is on hold until a resolution is determined...
 
 ## Disclaimer and Terms
 

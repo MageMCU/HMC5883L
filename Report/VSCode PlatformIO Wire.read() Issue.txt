@@ -1,0 +1,91 @@
+PlatformIO Arduino - Arduino Uno - Arduino.h Lib and dependencies....
+Code Issue: Type Conversion of two's co,mpliment...
+
+Data types
+UINT8_MAX = 0x7F = 0b0111 111
+INT8_MAX = 0x7F = 0b0111 111
+
+                    Example 
+Two's Compliment 8-bit integers (uint8_t and int8_t)
+                      Table
+  ---------------------------------------------
+    Bits        Unsigned Value     Signed Value
+  ---------------------------------------------
+  0000 0000          0                  0
+  0000 0001          1                  1
+  0000 0010          2                  2
+  0111 1110        126                126
+  0111 1111        127                127
+  1000 0000        128               -128
+  1000 0001        129               -127
+  1000 0010        130               -126
+  1111 1110        254                 -2
+  1111 1111        255                 -1
+  
+Source: Wikipedia (https://en.wikipedia.org/wiki/Two%27s_complement)
+
+The above example can be expanded to 16-bit integers
+which brings us to the issue. The HMC5883L.h class at MageMCU
+at Github has the following code...
+------------------------------------------------------------------
+template <typename real>
+    void HMC5883L<real>::Update()
+    {
+        Wire.beginTransmission(m_deviceAddr);
+        Wire.write(byte(0x03));
+        Wire.endTransmission();
+
+        Wire.requestFrom(m_deviceAddr, (byte)6);
+        if (Wire.available() == 6)
+        {
+            m_x = Wire.read() << 8 | Wire.read();
+            m_z = Wire.read() << 8 | Wire.read();
+            m_y = Wire.read() << 8 | Wire.read();
+        }
+   }
+------------------------------------------------------------------
+Output data:
+UINT16_MAX = 0x7FFF = 0b0111 1111 1111 1111
+INT16_MAX = 0x7FFFF = 0b0111 1111 1111 1111
+Also I used real (float)
+------------------------------------------------------------------
+Ex. raw data assigned to real (float) 
+Note also get same data output with datatypes uint16_t and int16_t...
+points,  x,    y,     z, Continue with this...
+--------------------------------------------
+  1,    74, 65277,   154,
+  2,   231, 65207,   188,
+  3,   179, 65162,   275,
+  4,    93, 65277,   164,
+  5, 65448, 65471,   ***,
+  6, 65285,   101,      ,
+  7, 65264,   110,      ,
+  8, 65394, 65477,  
+------------------------------------------------------------------
+Data acquisition stopped at ***
+------------------------------------------------------------------
+The reason why I had stopped recording data because of the following:
+At z point 5 would have averaged to following data:
+----------------------------------------------------
+           3
+           7
+       65499
+           0
+       65529
+           4
+       65534
+           2
+----------------------------------------------------
+Those larger values ought to be negative integers comparable
+in size to that of the smaller values... This is evident
+when considering two's compliment example above...
+----------------------------------------------------
+The issue is PlatformIO is how to convert the larger
+values to their negative counter-parts?
+----------------------------------------------------
+If anyone has a solution, please email me at:
+carpenterhesse@gmail.com
+Thank You
+
+  
+  
