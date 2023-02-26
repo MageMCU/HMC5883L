@@ -2,8 +2,8 @@ PlatformIO Arduino - Arduino Uno - Arduino.h Lib and dependencies....
 Code Issue: Type Conversion of two's compliment...
 
 Data types
-UINT8_MAX = 0x7F = 0b0111 111
-INT8_MAX = 0x7F = 0b0111 111
+UINT8_MAX = 0x7F = 0b0111 1111
+INT8_MAX = 0x7F = 0b0111 1111
 
                     Example 
 Two's Compliment 8-bit integers (uint8_t and int8_t)
