@@ -214,8 +214,6 @@ namespace par
             m_y = Wire.read() << 8 | Wire.read();
         }
 
-        
-
         // Interested in the heading only...
         // Headings (board orientation - place arrows accordingly)
         // board placement for example XY horizontal to earth's surface...
