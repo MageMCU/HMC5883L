@@ -243,7 +243,6 @@ namespace par
         str += String(m_heading, 2);
         return str;
     }
-
 }
 
 #endif
