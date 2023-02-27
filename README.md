@@ -25,8 +25,8 @@ This MCU chip **Atmega328P** is well known and the price is affordable as well a
 
 - Uncovered Parallax HMC5883L failure.
     - Integer data-type conversion two's compliment BUG
-    - Readthe  **Bug Report** titled: VSCode PlatformIO Wire.read() Issue.txt
-        - File located in Bug-Report folder...
+    - Read the  **Bug Report** titled: VSCode PlatformIO Wire.read() Issue.txt
+        - File is located in Bug-Report folder...
         - Uploaded a supplemental bug report in the same folder (PDF). 20230226...
   
 ## In Development
