@@ -39,11 +39,6 @@ namespace par
     {
     private:
         uint8_t m_deviceAddr;
-        // UINT8_MAX = 0x7F
-        // INT8_MAX = 0x7F
-        // UINT16_MAX = 0x7FFF = 0b0111 1111 1111 1111
-        // INT16_MAX = 0x7FFFF = 0b0111 1111 1111 1111
-        
         real m_x;
         real m_y;
         real m_z;
@@ -180,24 +175,18 @@ namespace par
     template <typename real>
     uint16_t HMC5883L<real>::GetRawX()
     {
-        // Uhh Ha Moment
-        if (m_x > (real)0x7FFF) m_x -= (real)0xFFFF;
         return m_x;
     }
 
     template <typename real>
     uint16_t HMC5883L<real>::GetRawY()
     {
-        // Uhh Ha Moment
-        if (m_y > (real)0x7FFF) m_y -= (real)0xFFFF;
         return m_y;
     }
 
     template <typename real>
     uint16_t HMC5883L<real>::GetRawZ()
     {
-        // Uhh Ha Moment
-        if (m_z > (real)0x7FFF) m_z -= (real)0xFFFF;
         return m_z;
     }
 
