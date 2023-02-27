@@ -4,8 +4,8 @@
 //
 // Purpose: Public Github Account - MageMCU
 // Repository: HMC5883L 
-// Date Created: 20230224
-// Folder: Code - HMC5883L/src
+// Date Created: 20230225
+// Folder: Code-HMC5883L
 //
 // Author: Jesse Carpenter (carpentersoftware.com)
 // Email:carpenterhesse@gmail.com
@@ -40,7 +40,7 @@ void setup() {
   // Address of HMC5883L is 0x1E (hexidecimal)
   compass = par::HMC5883L<float>(0x1E);
   // More info in class file (binary bits)
-  compass.BeginRegA(0b00010000);
+  compass.BeginRegA(0b01110000);
   compass.BeginRegB(0b00100000);
   compass.BeginModeReg(0b00000000);
 
@@ -53,6 +53,6 @@ void loop() {
   if (loopTimer.isTimer(1000))
   {
     compass.Update();
-    Serial.println(compass.GetString());
+    Serial.println(compass.GetRawZ());
   }
 }

@@ -3,12 +3,11 @@
 // File: HMC5883L.h
 // Source: Honeywell HMC5883L Datasheet
 // Used Device Board: (1) Parallax Compass Module 3-Axis HMC5883L (#29133)
-//                    (2) Others pending...
 //
 // Purpose: Public Github Account - MageMCU
-// Repository: HMC5883L
+// Repository: HMC5993L
 // Date Created: 20230221
-// Folder: HMC5883L/include
+// Folder: Code-HMC5883L
 //
 // Author: Jesse Carpenter (carpentersoftware.com)
 // Email:carpenterhesse@gmail.com
@@ -23,24 +22,7 @@
 //
 // MIT LICENSE
 //
-// The code can be easily compared along with the Honeywell HMC5883L Datasheet...
-// Keep it simple...
-//
-// Note: (1) The Parallax Compass Module 3-Axis HMC5883L (#29133) may not be functioning
-//           properly... Setting up an experiment to obtain data. Pending allocation from
-//           other board manufacturers to be used in a comparative test. Project on hold.
-//       (2) Looking for other HMC5883L boards...
-//
-// Code was extracted from various websites and sources and then simplified as shown below... 
-// The code is under development...
-//
-// Experiment design - csv file - headings as a function of angles H(a).
-// (1) Draw two lines perpendicular 90 degrees 
-// (1a) Draw two lines perpendicular offset to (1) giving 8 - 45 degree angles
-// (2) Use these 8 lines to measure the headings... 
-// (3) Should give an approximate angle offset relative to the given angles
-// (4) Use both the actual and the readings into comma separated values (csv) file
-// (5) Use spreadsheet to plot data... 
+// Please read Bug-Report at MageMCU at Github...
 //
 
 #ifndef Parallax_HMC5883L_h
@@ -57,11 +39,16 @@ namespace par
     {
     private:
         uint8_t m_deviceAddr;
+        // UINT8_MAX = 0x7F
+        // INT8_MAX = 0x7F
+        // UINT16_MAX = 0x7FFF = 0b0111 1111 1111 1111
+        // INT16_MAX = 0x7FFFF = 0b0111 1111 1111 1111
+        
         real m_x;
         real m_y;
         real m_z;
         real m_heading;
-
+        
     public:
         // Constructor
         HMC5883L() = default;
@@ -72,6 +59,11 @@ namespace par
         void BeginRegA(uint8_t bits);
         void BeginRegB(uint8_t bits);
         void BeginModeReg(uint8_t bits);
+
+        // Getters
+        uint16_t GetRawX();
+        uint16_t GetRawY();
+        uint16_t GetRawZ();
 
         // Arduino loop()
         void Update();
@@ -86,7 +78,6 @@ namespace par
         m_heading = (real)0;
     }
 
-
     template <typename real>
     void HMC5883L<real>::BeginRegA(uint8_t bits /* 0b00010000 Default */)
     {
@@ -94,7 +85,7 @@ namespace par
         Wire.beginTransmission(m_deviceAddr);
 
         // Configuration Register-A - hexidecimal
-        Wire.write(byte(0x00));      
+        Wire.write(byte(0x00));
 
         // Reg A binary data
         // CRA0 through CRA7 indicate bit locations
@@ -103,10 +94,10 @@ namespace par
         //                  0b0-------    reserved for future function.
         //
         // CRA6 to CRA5     0b-XX-----    X-bit-locations
-        //                  0b-00-----    1 - samples averaged - Default    
-        //                  0b-01-----    2 - samples averaged    
-        //                  0b-10-----    4 - samples averaged    
-        //                  0b-11-----    8 - samples averaged    
+        //                  0b-00-----    1 - samples averaged - Default
+        //                  0b-01-----    2 - samples averaged
+        //                  0b-10-----    4 - samples averaged
+        //                  0b-11-----    8 - samples averaged
         //
         // CRA4 to CRA2     0b---XXX--    X-bit-locations
         //                  0b---000--    0.75 Hz - Data Output
@@ -153,7 +144,7 @@ namespace par
         //
         // CRB4 to CRB0    0b---XXXXX    X-bit-locations
         //                 0b---00000    cleared for correct operation.
-        Wire.write(byte(bits)); 
+        Wire.write(byte(bits));
         Wire.endTransmission();
 
         delay(5);
@@ -168,7 +159,7 @@ namespace par
         // Mode Reg hex
         Wire.write(byte(0x02));
 
-        // Mode Reg binary data 
+        // Mode Reg binary data
         // MR0 through MR7 indicate bit locations
         //    bits       bit-values     description
         // MR7 to MR2    0bXXXXXX--   X-bit-locations
@@ -180,11 +171,34 @@ namespace par
         //               0b------10   Idle Mode.
         //               0b------11   Idle Mode.
 
-
         Wire.write(byte(bits));
         Wire.endTransmission();
 
         delay(5);
+    }
+
+    template <typename real>
+    uint16_t HMC5883L<real>::GetRawX()
+    {
+        // Uhh Ha Moment
+        if (m_x > (real)0x7FFF) m_x -= (real)0xFFFF;
+        return m_x;
+    }
+
+    template <typename real>
+    uint16_t HMC5883L<real>::GetRawY()
+    {
+        // Uhh Ha Moment
+        if (m_y > (real)0x7FFF) m_y -= (real)0xFFFF;
+        return m_y;
+    }
+
+    template <typename real>
+    uint16_t HMC5883L<real>::GetRawZ()
+    {
+        // Uhh Ha Moment
+        if (m_z > (real)0x7FFF) m_z -= (real)0xFFFF;
+        return m_z;
     }
 
     template <typename real>
@@ -202,15 +216,21 @@ namespace par
         Wire.requestFrom(m_deviceAddr, (byte)6); // Request 6 bytes; 2 bytes per axis
         if (Wire.available() == 6)
         {
+            // See page 10 Honeywell HMC5883L Registers
+            // Address Location - 0x03 (X-MSB) - 0x04 (X-LSB)
             m_x = Wire.read() << 8 | Wire.read();
-            m_y = Wire.read() << 8 | Wire.read();
+            // Address Location - 0x05 (Z-MSB) - 0x06 (Z-LSB)
             m_z = Wire.read() << 8 | Wire.read();
+            // Address Location - 0x07 (Y-MSB) - 0x08 (Y-LSB)
+            m_y = Wire.read() << 8 | Wire.read();
         }
+
+        
 
         // Interested in the heading only...
         // Headings (board orientation - place arrows accordingly)
         // board placement for example XY horizontal to earth's surface...
-        // axes XY where Z points-up: first test (Questionable) --------------------- FAILED 
+        // axes XY where Z points-up: first test (Questionable) --------------------- FAILED
         // axes YZ where X points-up: not tested yet
         // axes ZX where Y points-up: not tested yet
 
@@ -218,7 +238,7 @@ namespace par
 
         // Functions MiscMath.h
         // m_heading = nmr::AngleRadian<float>(m_x, m_y) * (float)RAD_TO_DEG;
-        m_heading = nmr::Angle2Radian<float>(m_x, m_y) * (float)RAD_TO_DEG;
+        // m_heading = nmr::Angle2Radian<float>(m_x, m_y) * (float)RAD_TO_DEG;
 
         // Pending - Setup an experiment to obtain data... Project on hold
     }
