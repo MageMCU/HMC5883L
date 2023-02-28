@@ -27,7 +27,8 @@ This MCU chip **Atmega328P** is well known and the price is affordable as well a
     - Integer data-type conversion two's compliment BUG
     - Read the  **Bug Report** titled: VSCode PlatformIO Wire.read() Issue.txt
         - File is located in Bug-Report folder...
-        - Uploaded a supplemental bug report in the same folder (PDF). 20230226...
+        - Uploaded a supplemental bug report in the same folder (PDF). 20230228...
+    - **New data:** Pololu LSM303D Compass testing shows that the previous bug about the HMC5883L Arduino's Wire.h was erroneously concluded prematurely without having the adequate information. The LSM303D testing shows that the code here needs further work.
   
 ## In Development
 
