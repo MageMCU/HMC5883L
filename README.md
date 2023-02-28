@@ -38,8 +38,6 @@ This MCU chip **Atmega328P** is well known and the price is affordable as well a
         - Application Note - AN3192
             - Using LSM303DLH for tilt compensated electronic compass
         - With this information and the further attempt to contact Honeywell, I might get their compass up and working...
-    - Additional information was found for QMC5883L and HMC5883L sensors from National Library of Medicine (NIH) website from their Journal list - PLoS - PMC9307166 - published online 2022 Jul 22 titled ***Integration and evaluation of magnetic stimulation in physiology setups***. This article can be downloaded as a PDF file.
-        - This article has an extensive reference section to other sources... It seems like the authors of this article could not get anything from Honeywell either except their datasheet...
     - Xtrinsic MAG3110 Three-Axis, Digital Magnetometer (Pending)
         - Application Note - AN4246
             - Calibrating an eCompass in the Presense of Hard- and Soft-Iron Interferance
@@ -48,6 +46,8 @@ This MCU chip **Atmega328P** is well known and the price is affordable as well a
                 - Has more mathematically...
         - Application Note - AN4248
             - Implementing a Tilt-Compensated eCompass using Accelerometer and Magnetometer Sensors
+    - Additional information was found for QMC5883L and HMC5883L sensors from National Library of Medicine (NIH) website from their Journal list - PLoS - PMC9307166 - published online 2022 Jul 22 titled ***Integration and evaluation of magnetic stimulation in physiology setups***. This article can be downloaded as a PDF file.
+        - This article has an extensive reference section to other sources... It seems like the authors of this article could not get anything from Honeywell either except their datasheet...
 
 ## Disclaimer and Terms
 
