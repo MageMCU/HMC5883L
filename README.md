@@ -21,7 +21,7 @@ This MCU chip **Atmega328P** is well known and the price is affordable as well a
 
 **Visual Studio Code** is a streamlined code editor and it runs on macOS, Linux, and Windows. The best thing about VSCode, it is free.
 
-## Issues - PlatformIO - Arduino - Arduino Uno - Arduino.h - Wire.h Libs...
+## Issues
 
 - Uncovered Parallax HMC5883L failure.
     - Integer data-type conversion two's compliment BUG
@@ -32,7 +32,10 @@ This MCU chip **Atmega328P** is well known and the price is affordable as well a
   
 ## In Development
 
-- This project is on hold until a resolution is determined...
+- The programming and testing of multiple magnetometers, HMC5883L and LSM303D have similar functional characteristics when it comes to programming which I hope will solve some of the issues with the HMC5883L. 
+    - There are no technical or application notes to suplement information other than the incomplete HMC5883L datasheet from Honeywell.
+    - On the other hand, the STMicroelectronics LSM303D datasheet is simiular to the Honeywell, but I did find an application note AN3192.
+        - With this information and the further attempt to contact Honeywell, I might get their compass up and working...
 
 ## Disclaimer and Terms
 
