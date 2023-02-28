@@ -36,6 +36,7 @@ This MCU chip **Atmega328P** is well known and the price is affordable as well a
     - There are no technical or application notes to suplement information other than the incomplete HMC5883L datasheet from Honeywell.
     - On the other hand, the STMicroelectronics LSM303D datasheet is simiular to the Honeywell, but I did find an application note AN3192.
         - With this information and the further attempt to contact Honeywell, I might get their compass up and working...
+    - Additional information was found for QMC5883L and HMC5883L sensors from National Library of Medicine (NIH) website from their Journal list - PLoS - PMC9307166 - published online 2022 Jul 22 titled ***Integration and evaluation of magnetic stimulation in physiology setups***. This article can be downloaded as a PDF file.
 
 ## Disclaimer and Terms
 
